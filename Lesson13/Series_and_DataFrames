@@ -78,6 +78,8 @@ df.notna().all() # bool check if there are any values that are empty (returns Fa
 
 df.dropna() # dropping the rows that have an empty value somewhere, it does not override the original dataframe
 
+df_new_dataframe = df.dropna() # saving the cleaned up data into a new file, leaves the original file 
+# OR
 df.dropna(inplace=True) # drops the rows that have an empty value somewhere AND REPLACES THE ORIGINAL DATAFRAME
 
 df.to_csv('cleaned_data.csv') # saving the cleaned up dataframe as a csv file
