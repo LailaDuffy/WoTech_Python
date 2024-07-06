@@ -1,0 +1,41 @@
+import pandas as pd
+
+# LIST
+data_list = [1, 2, 3, 4, 5]
+print(data_list)
+
+# PANDAS SERIES - used for collecting data like anonymous ratings
+series_from_list = pd.Series(data_list)
+print(series_from_list)
+
+# PANDAS DATAFRAME - collection of series, creates a table
+dataframe_from_list = pd.DataFrame(data_list)
+print(dataframe_from_list)
+
+# DICTIONARY
+data_dict = {'A': 10, 'B': 20, 'C': 30, 'D': 40, 'E': 50}
+
+dataframe_from_dict = pd.Series(data_dict)
+print(dataframe_from_dict)
+
+# CSV DATA
+csv_data = "1,2,3,4,5" # String
+csv_data.split(',') # Split String into a list
+
+series_from_list = pd.Series(csv_data)
+print(csv_data)
+
+series_from_list_split = pd.Series(csv_data.split(','))
+print(series_from_list_split)
+
+# DATA FRAMES
+data_list = [
+    ['John', 30, 68.5, True, 95.5],
+    ['Alice', 25, 63.2, False, 88.0],
+    ['Bob', 35, 71.0, True, 76.5],
+    ['Eve', 28, 65.8, False, 92.0],
+    ['Charlie', 40, 72.3, False, 87.5]
+]
+pd.DataFrame(data_list) 
+column_names = ['Name', 'Age', 'Weight', 'Is Student', 'Score']
+pd.DataFrame(data_list, columns=column_names)
