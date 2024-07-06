@@ -36,6 +36,48 @@ data_list = [
     ['Eve', 28, 65.8, False, 92.0],
     ['Charlie', 40, 72.3, False, 87.5]
 ]
+
 pd.DataFrame(data_list) 
 column_names = ['Name', 'Age', 'Weight', 'Is Student', 'Score']
 pd.DataFrame(data_list, columns=column_names)
+
+# WORKING WITH A CSV FILE
+df = pd.read_csv('/content/transaction_dataset.csv') # read in the file
+
+df.head() # gives first 5 rows of dataframe
+
+df.tail(n=10) # gives last 10 rows in dataframe
+
+df.shape # defines how many rows and columns are in the dataframe
+
+df.sample(5) # gives random samples (5 in this case) of the data
+
+df.info() # important for big datafrmes, it gives info about columns (name), data types (Dtype), how many values are there 
+
+df.describe() # summary statistics of integers/floats
+
+df.describe(include='object') # summary statstics of all objects from the data
+
+df['Gender'] # to select a specific column, accessing the column by it's name, can access several columns together
+# How many unique values are in the column?
+df['Gender'].unique() 
+
+df.Gender # to select a specific column, accessing as an attribute, only one column can be accessed at a time, AND ONLY COLUMNS WITH ONE WORD
+
+df.iloc[:, 3] # accessing column with index (iloc = index location [row, column]) 
+
+df['Gender'].value_counts(dropna=False) # to count specific values, usually leaves out NaN, but can be included when defining value_counts(dropna=False)
+
+df.isna() # will return the table in binary values of which values are N/A False = 0, True = 1
+
+df.isna().sum() # how many N/A values there are in each column
+
+df.notna().sum() # how many actual values are in each column
+
+df.notna().all() # bool check if there are any values that are empty (returns False)
+
+df.dropna() # dropping the rows that have an empty value somewhere, it does not override the original dataframe
+
+df.dropna(inplace=True) # drops the rows that have an empty value somewhere AND REPLACES THE ORIGINAL DATAFRAME
+
+df.to_csv('cleaned_data.csv') # saving the cleaned up dataframe as a csv file
