@@ -1,0 +1,141 @@
+#DATA VISUALIZATION
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# data from https://allisonhorst.github.io/palmerpenguins/
+
+species = (
+    "Adelie\n $\\mu=$3700.66g",
+    "Chinstrap\n $\\mu=$3733.09g",
+    "Gentoo\n $\\mu=5076.02g$",
+)
+weight_counts = {
+    "Below": np.array([70, 31, 58]),
+    "Above": np.array([82, 37, 66]),
+}
+width = 0.5
+
+fig, ax = plt.subplots()
+bottom = np.zeros(3)
+
+for boolean, weight_count in weight_counts.items():
+    p = ax.bar(species, weight_count, width, label=boolean, bottom=bottom)
+    bottom += weight_count
+
+ax.set_title("Number of penguins with above average body mass")
+ax.legend(loc="upper right")
+
+plt.show()
+
+# Sample data representing the average temperature (in degrees Celsius) from 2010 to 2014
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {'Year': [2010, 2011, 2012, 2013, 2014], 
+        'Avg_Temperature': [14.1, 14.3, 14.5, 14.2, 14.6]}
+
+df = pd.DataFrame(data)
+
+#VERSION 1 OF PLOTTING - using plt offers more customization, but more complex
+plt.plot(df['Year'], df['Avg_Temperature']) # first value is X axis, second is Y axis
+
+# adding a marker
+plt.plot(df['Year'], df['Avg_Temperature'], marker='o')
+
+# adding a title
+plt.title('Average temperature per year from 2010 to 2014')
+
+# adding X and Y labels
+plt.xlabel('Year')
+plt.ylabel('Average temperature, degC')
+
+# fixing the year to whole numbers
+plt.xticks(df['Year']) # to round the year values
+
+# adding the grid
+plt.grid(True)
+
+# showing the chart without the annotation from code at the top
+plt.show()
+
+#VERSION 2 OF PLOTTING - using df is a high level plotting function provided by pandas
+
+df.plot(x='Year', y='Avg_Temperature', kind='line')
+
+# adding a title
+plt.title('Average temperature per year from 2010 to 2014')
+
+# adding X and Y labels
+plt.xlabel('Year')
+plt.ylabel('Average temperature, degC')
+
+# fixing the year to whole numbers
+plt.xticks(df['Year']) # to round the year values
+
+# adding the grid
+plt.grid(True)
+
+# showing the chart without the annotation from code at the top
+plt.show()
+
+#BAR CHART
+plt.bar(df['Year'], df['Avg_Temperature'], color='maroon')
+plt.title('Average temperature per year from 2010 to 2014')
+plt.xlabel('Year')
+plt.ylabel('Temperature, degC')
+plt.grid(True)
+plt.ylim(14, 15)
+
+#HORIZONTAL BAR CHART
+plt.barh(df['Avg_Temperature'], df['Year'], color='thistle')
+plt.title('Average temperature per year from 2010 to 2014')
+plt.ylabel('Year')
+plt.xlabel('Temperature, degC')
+plt.show()
+
+#HISTOGRAM - presents distribution of a single variable, frequency, numerical data
+
+data2={'Scores': [85, 92, 78, 20, 89, 90, 82, 56, 60, 23, 90, 40, 77]}
+df2 = pd.DataFrame(data2)
+
+plt.hist(df2['Scores'], bins=5, color='violet', edgecolor='maroon') # bins - how many groups the data will be grouped
+
+#SCATTER PLOT - relationship between two variables 
+import numpy as np
+data3 = {'X': [1, 2, 3, 5, 5, 2], 'Y': [5, 8, 7, 4, 9, 5]}
+df3 = pd.DataFrame(data3)
+
+plt.scatter(x=df3['X'], y=df3['Y'], color='purple')
+plt.title('Scatter plot')
+
+# Linear trendline
+z = np.polyfit(df3['X'], df3['Y'], 1)
+p = np.poly1d(z)
+# Plot the trendline
+plt.plot(df3['X'], p(df3['X']), color='red')
+plt.grid(True)
+plt.show()
+
+#PIE CHART
+
+data4 = {'Category': ['A', 'B', 'C', 'D'], 'Values': [15, 30, 25, 40]}
+df4 = pd.DataFrame(data4)
+
+plt.pie(df4['Values'], labels=df4['Category'], autopct='%1.1f%%') # autopct - automatically calculates percentages, formated as ploating point (1.1) with % sign (f%)
+plt.title('Pie Chart')
+plt.show()
+
+#BOX PLOT - presents distribution of a dataset and identifies outliers
+
+plt.boxplot(df4['Values'])
+plt.grid(True)
+plt.show()
+
+#VALUE COUNT - counts the frequency of each unique value in a dataset (how many times a value repeats)
+dataset = pd.read_csv('/content/transaction_dataset.csv')
+dataset.head()
+dataset.info()
+
+dataset['Category'].value_counts()
+dataset['Gender'].value_counts(dropna=False).reset_index() # resets index and outputs a usable DataFrame
